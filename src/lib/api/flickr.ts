@@ -25,7 +25,8 @@ export const extras = [
 	// 'url_s',
 	'url_m',
 	'url_o',
-	'url_w'
+	'url_w',
+	'url_c'
 ].join(',');
 
 const getAlbums = async (userId: string) => {

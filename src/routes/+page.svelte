@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import home from '$lib/assets/home.jpg';
+	import Image from 'sveltekit-image';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 
@@ -39,11 +40,13 @@
 		{#each data.photosets.photoset as album}
 			<li class="album">
 				<a class="album-link" href={`/albums/${album.id}`}>
-					<img
+					<Image
 						class="album-cover"
-						src={album.primary_photo_extras.url_m}
+						src={album.primary_photo_extras.url_c}
 						alt={album.title._content}
-						loading="lazy"
+						width={album.primary_photo_extras.width_c}
+						height={album.primary_photo_extras.height_c}
+						quality={100}
 					/>
 					<span class="img-title">{album.title._content}</span>
 				</a>
@@ -97,7 +100,7 @@
 		display: flex;
 		position: relative;
 	}
-	.album-cover {
+	.album-link :global(.album-cover) {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;

@@ -22,6 +22,7 @@
 	import 'photoswipe/style.css';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
+	import Image from 'sveltekit-image';
 
 	export let images;
 	export let individual = false;
@@ -99,7 +100,14 @@
 			style:--width={layout.boxes[i].width}
 			style:--height={layout.boxes[i].height}
 		>
-			<img src={thumb.src} alt={img.alt ?? ''} width={thumb.width} height={thumb.height} />
+			<Image
+				class="img"
+				src={thumb.src}
+				alt={img.alt ?? ''}
+				width={thumb.width}
+				height={thumb.height}
+				quality={100}
+			/>
 		</a>
 	{/each}
 </div>
@@ -116,7 +124,7 @@
 		width: calc(var(--width) * 1px);
 		height: calc(var(--height) * 1px);
 	}
-	img {
+	a :global(.img) {
 		vertical-align: bottom;
 		width: 100%;
 		height: 100%;

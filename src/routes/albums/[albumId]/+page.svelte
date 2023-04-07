@@ -3,6 +3,7 @@
 	import type { PageData } from './$types';
 	import PhotoSwipeGallery from '$lib/components/PhotoSwipeGallery.svelte';
 	import type { GalleryItem } from '$lib/components/PhotoSwipeGallery.svelte';
+	import Image from 'sveltekit-image';
 
 	export let data: PageData;
 
@@ -15,14 +16,18 @@
 
 	$: images = data.album.photoset.photo.map((photo) => {
 		return {
-			src: photo.url_o,
+			src: `/api/_image?${new URLSearchParams({
+				url: photo.url_o,
+				w: photo.width_o.toString(),
+				q: '100'
+			}).toString()}`,
 			width: photo.width_o,
 			height: photo.height_o,
 			alt: photo.title,
 			thumbnail: {
-				src: photo.url_w,
-				width: photo.width_w,
-				height: photo.height_w
+				src: photo.url_c,
+				width: photo.width_c,
+				height: photo.height_c
 			}
 		} as GalleryItem;
 	});
@@ -41,7 +46,7 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{data.albumInfo.photoset.title._content} - Album" />
 	<meta property="og:description" content={description} />
-	<meta property="og:image" content={primaryPhoto.url_m} />
+	<meta property="og:image" content={primaryPhoto.url_c} />
 
 	<!-- Twitter Meta Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
@@ -52,11 +57,17 @@
 	/>
 	<meta name="twitter:title" content="{data.albumInfo.photoset.title._content} - Album" />
 	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content={primaryPhoto.url_m} />
+	<meta name="twitter:image" content={primaryPhoto.url_c} />
 </svelte:head>
 
 <div class="container">
-	<img class="title-img" src={primaryPhoto.url_m} alt={data.album.photoset.title} />
+	<Image
+		class="title-img"
+		src={primaryPhoto.url_w}
+		alt={data.album.photoset.title}
+		width={primaryPhoto.width_w}
+		height={primaryPhoto.height_w}
+	/>
 	<h1 class="title">
 		{data.albumInfo.photoset.title._content}
 	</h1>
@@ -92,7 +103,7 @@
 		margin: 0;
 	}
 
-	.title-img {
+	.container :global(.title-img) {
 		grid-area: image;
 		align-self: start;
 		justify-self: self-end;
@@ -117,7 +128,7 @@
 			grid-template-rows: 1fr 1fr;
 		}
 
-		.title-img {
+		.container :global(.title-img) {
 			display: none;
 		}
 

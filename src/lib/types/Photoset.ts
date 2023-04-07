@@ -62,8 +62,11 @@ export interface PrimaryPhotoExtras {
 	url_o: string;
 	height_o: number;
 	width_o: number;
-	pathalias: null;
-	url_w: string;
-	height_w: number;
-	width_w: number;
+	// pathalias: null;
+	// url_w: string;
+	// height_w: number;
+	// width_w: number;
+	url_c: string;
+	height_c: number;
+	width_c: number;
 }
