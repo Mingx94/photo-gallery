@@ -14,7 +14,7 @@ export const GET: RequestHandler = requestHandler({
 			: 'http://127.0.0.1:5173',
 	avif: false,
 	remoteDomains: ['live.staticflickr.com'],
-	allowedDomains: ['live.staticflickr.com'],
+	allowedDomains: ['coding-shutter.blog'],
 	ttl: 1000 * 60 * 60 * 24 * 7,
 	storePath: '.svelte-kit/images'
 }) satisfies RequestHandler;
