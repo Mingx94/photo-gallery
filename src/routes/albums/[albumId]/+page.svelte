@@ -16,11 +16,7 @@
 
 	$: images = data.album.photoset.photo.map((photo) => {
 		return {
-			src: `/api/_image?${new URLSearchParams({
-				url: photo.url_o,
-				w: photo.width_o.toString(),
-				q: '100'
-			}).toString()}`,
+			src: photo.url_o,
 			width: photo.width_o,
 			height: photo.height_o,
 			alt: photo.title,
